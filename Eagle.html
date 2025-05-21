@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Lego League Guide</title>
+    <style>
+        :root {
+            --primary: #00A651;
+            --secondary: #ED1C24;
+            --accent: #FFC72C;
+            --dark: #333333;
+            --light: #f9f9f9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tagline {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .tabs {
+            display: flex;
+            justify-content: center;
+            background-color: var(--dark);
+            padding: 0.5rem;
+            overflow-x: auto;
+        }
+        
+        .tab-button {
+            background-color: transparent;
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            margin: 0 0.25rem;
+        }
+        
+        .tab-button:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .tab-button.active {
+            background-color: var(--accent);
+            color: var(--dark);
+            font-weight: bold;
+        }
+        
+        .content {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin: 1.5rem 0 0.75rem;
+        }
+        
+        p, ul, ol {
+            margin-bottom: 1rem;
+        }
+        
+        ul, ol {
+            padding-left: 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .resource-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .resource-card h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .resource-card p {
+            flex-grow: 1;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: #008a43;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: var(--accent);
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+            text-align: right;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::after {
+            right: -14px;
+        }
+        
+        .right::after {
+            left: -14px;
+        }
+        
+        .timeline-content {
+            padding: 1rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-content h4 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .tab-button {
+                margin-bottom: 0.5rem;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+                text-align: left;
+            }
+            
+            .left::after, .right::after {
+                left: 15px;
+            }
+            
+            .right {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">🤖 FIRST LEGO LEAGUE GUIDE</div>
+        <div class="tagline">Inspiring young minds through robotics and innovation</div>
+    </header>
+    
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab('overview')">Overview</button>
+        <button class="tab-button" onclick="openTab('robot-design')">Robot Design</button>
+        <button class="tab-button" onclick="openTab('programming')">Programming</button>
+        <button class="tab-button" onclick="openTab('innovation-project')">Innovation Project</button>
+        <button class="tab-button" onclick="openTab('core-values')">Core Values</button>
+        <button class="tab-button" onclick="openTab('competition')">Competition</button>
+        <button class="tab-button" onclick="openTab('resources')">Resources</button>
+    </div>
+    
+    <div class="content">
+        <!-- Overview Tab -->
+        <div id="overview" class="tab-content active">
+            <h2>Welcome to First Lego League!</h2>
+            <div class="card">
+                <p>FIRST LEGO League is an exciting global robotics program that introduces STEM concepts to children ages 9-16 (grades 4-8) through fun, hands-on learning. Teams compete in the Robot Game and present their solutions to real-world problems in the Innovation Project.</p>
+                <p>This guide is designed to help teams navigate through the key aspects of the FLL experience.</p>
+            </div>
+            
+            <h3>The Three Components of FLL</h3>
+            <div class="card">
+                <ol>
+                    <li><strong>Robot Game:</strong> Teams design, build, and program an autonomous LEGO robot to complete missions on a themed playing field.</li>
+                    <li><strong>Innovation Project:</strong> Teams identify and solve a real-world problem related to the season's theme.</li>
+                    <li><strong>Core Values:</strong> Teams demonstrate the FIRST Core Values throughout all they do.</li>
+                </ol>
+            </div>
+            
+            <h3>Season Timeline</h3>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>Season Launch (August)</h4>
+                        <p>Challenge release and team registration</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4>Team Formation (August-September)</h4>
+                        <p>Establish team roles and begin planning</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>Build & Research Phase (September-November)</h4>
+                        <p>Robot design, programming, and project research</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4>Practice & Refinement (November-December)</h4>
+                        <p>Testing, iterating, and preparing presentations</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>Qualifier Tournaments (December-January)</h4>
+                        <p>First level of competition</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h4>Regional/State Championships (January-February)</h4>
+                        <p>Advanced level of competition</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h4>World Festival (April)</h4>
+                        <p>International championship event</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Robot Design Tab -->
+        <div id="robot-design" class="tab-content">
+            <h2>Robot Design</h2>
+            <div class="card">
+                <p>The robot design component focuses on the mechanical design process, the physical robot, and its attachments. Teams are evaluated on their design process, mechanical efficiency, and innovation.</p>
+            </div>
+            
+            <h3>Robot Building Fundamentals</h3>
+            <div class="card">
+                <ul>
+                    <li><strong>Base Robot:</strong> Design a sturdy, reliable robot base that can navigate accurately and consistently.</li>
+                    <li><strong>Attachments:</strong> Create modular, effective attachments to complete specific missions.</li>
+                    <li><strong>Balance:</strong> Consider weight distribution, center of gravity, and stability in your design.</li>
+                    <li><strong>Efficient Use of Parts:</strong> Use LEGO pieces thoughtfully to create simple, functional mechanisms.</li>
+                </ul>
+            </div>
+            
+            <h3>Design Process</h3>
+            <div class="card">
+                <ol>
+                    <li><strong>Identify Problems:</strong> Analyze the mission requirements and identify the challenges.</li>
+                    <li><strong>Brainstorm Solutions:</strong> Generate multiple design ideas before building.</li>
+                    <li><strong>Build and Test:</strong> Create prototypes and test their effectiveness.</li>
+                    <li><strong>Iterate and Improve:</strong> Use test results to refine your design.</li>
+                    <li><strong>Document:</strong> Keep an engineering notebook to track your design process and decisions.</li>
+                </ol>
+            </div>
+            
+            <h3>Design Tips</h3>
+            <div class="card">
+                <ul>
+                    <li>Use a robust drivetrain with good traction and control.</li>
+                    <li>Consider using a consistent attachment mounting system for quick changes.</li>
+                    <li>Test extensively on the competition mat under various conditions.</li>
+                    <li>Focus on reliability over complexity — simple designs often work better!</li>
+                    <li>Consider mission sequence and robot path when designing.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Programming Tab -->
+        <div id="programming" class="tab-content">
+            <h2>Programming</h2>
+            <div class="card">
+                <p>Programming brings your robot to life! Teams must create code that allows their robot to navigate autonomously and complete missions efficiently. Clear, well-organized code that demonstrates good programming practices is valued.</p>
+            </div>
+            
+            <h3>Programming Fundamentals</h3>
+            <div class="card">
+                <ul>
+                    <li><strong>LEGO SPIKE/EV3/Robot Inventor:</strong> Learn the basics of your programming platform.</li>
+                    <li><strong>Algorithms:</strong> Develop step-by-step solutions to mission challenges.</li>
+                    <li><strong>Sensors:</strong> Utilize sensors for precise navigation and interaction.</li>
+                    <li><strong>Modularity:</strong> Create reusable functions or blocks for common actions.</li>
+                    <li><strong>Consistency:</strong> Ensure reliable performance through consistent code execution.</li>
+                </ul>
+            </div>
+            
+            <h3>Programming Best Practices</h3>
+            <div class="card">
+                <ol>
+                    <li><strong>Start Simple:</strong> Begin with basic movements before adding complexity.</li>
+                    <li><strong>Comment Your Code:</strong> Add notes explaining what each section does.</li>
+                    <li><strong>Test Frequently:</strong> Debug problems as they arise rather than at the end.</li>
+                    <li><strong>Use Variables:</strong> Create variables for values that might need adjustment.</li>
+                    <li><strong>Organize Programs:</strong> Name programs clearly and organize them logically.</li>
+                </ol>
+            </div>
+            
+            <h3>Advanced Techniques</h3>
+            <div class="card">
+                <ul>
+                    <li><strong>PID Control:</strong> Implement proportional-integral-derivative control for precise line following or turning.</li>
+                    <li><strong>Gyro Navigation:</strong> Use the gyro sensor for accurate turns and straight drives.</li>
+                    <li><strong>Parallel Processing:</strong> Run multiple tasks simultaneously when possible.</li>
+                    <li><strong>Data Logging:</strong> Collect and analyze sensor data to improve performance.</li>
+                    <li><strong>Menu Systems:</strong> Create a mission selection menu for tournament efficiency.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Innovation Project Tab -->
+        <div id="innovation-project" class="tab-content">
+            <h2>Innovation Project</h2>
+            <div class="card">
+                <p>The Innovation Project challenges teams to identify and solve a real-world problem related to the season's theme. Teams research, develop an innovative solution, and share their ideas with others.</p>
+            </div>
+            
+            <h3>Project Process</h3>
+            <div class="card">
+                <ol>
+                    <li><strong>Identify a Problem:</strong> Research issues related to the season's theme and select a specific problem to address.</li>
+                    <li><strong>Research Existing Solutions:</strong> Investigate how others have approached similar problems.</li>
+                    <li><strong>Develop an Innovative Solution:</strong> Create a new or improved solution to the problem.</li>
+                    <li><strong>Consult Experts:</strong> Seek feedback from professionals in relevant fields.</li>
+                    <li><strong>Refine and Test:</strong> Improve your solution based on feedback and testing.</li>
+                    <li><strong>Share with Others:</strong> Communicate your solution to potential beneficiaries.</li>
+                </ol>
+            </div>
+            
+            <h3>Presentation Tips</h3>
+            <div class="card">
+                <ul>
+                    <li>Create a clear, engaging presentation that tells your project story.</li>
+                    <li>Include visual aids such as posters, models, or digital presentations.</li>
+                    <li>Involve all team members in the presentation.</li>
+                    <li>Practice answering questions about your research and solution.</li>
+                    <li>Show evidence of how you shared your solution with others who might benefit.</li>
+                </ul>
+            </div>
+            
+            <h3>Project Documentation</h3>
+            <div class="card">
+                <p>Keep thorough records of your Innovation Project journey:</p>
+                <ul>
+                    <li>Research notes and sources</li>
+                    <li>Expert interview summaries</li>
+                    <li>Solution development iterations</li>
+                    <li>Sharing activities and feedback received</li>
+                    <li>Images, diagrams, or prototypes of your solution</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Core Values Tab -->
+        <div id="core-values" class="tab-content">
+            <h2>Core Values</h2>
+            <div class="card">
+                <p>FIRST Core Values are the heart of the program. They emphasize teamwork, discovery, inclusion, innovation, impact, and fun. Teams are evaluated on how well they demonstrate these values throughout all aspects of FLL.</p>
+            </div>
+            
+            <h3>The FIRST Core Values</h3>
+            <div class="card">
+                <ul>
+                    <li><strong>Discovery:</strong> We explore new skills and ideas.</li>
+                    <li><strong>Innovation:</strong> We use creativity and persistence to solve problems.</li>
+                    <li><strong>Impact:</strong> We apply what we learn to improve our world.</li>
+                    <li><strong>Inclusion:</strong> We respect each other and embrace our differences.</li>
+                    <li><strong>Teamwork:</strong> We are stronger when we work together.</li>
+                    <li><strong>Fun:</strong> We enjoy and celebrate what we do!</li>
+                </ul>
+            </div>
+            
+            <h3>Demonstrating Core Values</h3>
+            <div class="card">
+                <ul>
+                    <li>Practice active listening during team discussions.</li>
+                    <li>Ensure all team members have meaningful roles and responsibilities.</li>
+                    <li>Celebrate each other's successes and support each other during challenges.</li>
+                    <li>Help other teams when possible with a spirit of "coopertition."</li>
+                    <li>Document how your team demonstrates Core Values throughout the season.</li>
+                </ul>
+            </div>
+            
+            <h3>Team Building Activities</h3>
+            <div class="card">
+                <p>Regular team building exercises help strengthen Core Values:</p>
+                <ul>
+                    <li>Collaborative problem-solving challenges</li>
+                    <li>Communication games that emphasize listening and clarity</li>
+                    <li>Activities that highlight different strengths and skills</li>
+                    <li>Reflection discussions about teamwork successes and challenges</li>
+                    <li>Celebrations of individual and team accomplishments</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Competition Tab -->
+        <div id="competition" class="tab-content">
+            <h2>Competition Day</h2>
+            <div class="card">
+                <p>Competition days are exciting opportunities to showcase your team's hard work and learn from others. Tournaments include robot game rounds, judging sessions, and team activities.</p>
+            </div>
+            
+            <h3>Preparing for Competition</h3>
+            <div class="card">
+                <ul>
+                    <li>Create a detailed packing list for all robot, project, and team materials.</li>
+                    <li>Practice your Innovation Project presentation within the time limit (typically 5 minutes).</li>
+                    <li>Prepare for the Robot Design explanation (how your robot works and why you designed it that way).</li>
+                    <li>Review Core Values and how your team demonstrates them.</li>
+                    <li>Test your robot on an official mat under various lighting conditions.</li>
+                    <li>Create a pit display that showcases your team's journey.</li>
+                </ul>
+            </div>
+            
+            <h3>Competition Day Schedule</h3>
+            <div class="card">
+                <p>While schedules vary, most tournaments include:</p>
+                <ol>
+                    <li><strong>Check-in and Pit Setup:</strong> Arrive early to register and set up your team area.</li>
+                    <li><strong>Opening Ceremony:</strong> Official welcome and announcements.</li>
+                    <li><strong>Judging Sessions:</strong> Scheduled times for Core Values, Innovation Project, and Robot Design presentations.</li>
+                    <li><strong>Robot Game Rounds:</strong> Multiple opportunities (usually 3) to run your robot on the competition table.</li>
+                    <li><strong>Team Activities:</strong> Fun collaborative activities with other teams.</li>
+                    <li><strong>Closing Ceremony:</strong> Awards presentation and celebration.</li>
+                </ol>
+            </div>
+            
+            <h3>Competition Tips</h3>
+            <div class="card">
+                <ul>
+                    <li>Create and follow a schedule to ensure you're on time for all sessions.</li>
+                    <li>Designate roles for competition day (robot handlers, presenters, etc.).</li>
+                    <li>Have backup copies of programs and presentations.</li>
+                    <li>Bring extra batteries and charge devices the night before.</li>
+                    <li>Practice quick robot repairs and troubleshooting.</li>
+                    <li>Meet other teams and learn from their solutions.</li>
+                    <li>Most importantly: Have fun and celebrate your accomplishments!</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Resources Tab -->
+        <div id="resources" class="tab-content">
+            <h2>Helpful Resources</h2>
+            <div class="card">
+                <p>These resources can help your team succeed in all aspects of FIRST LEGO League.</p>
+            </div>
+            
+            <div class="resource-grid">
+                <div class="resource-card">
+                    <h4>Official FLL Resources</h4>
+                    <p>Challenge documents, rules updates, and official guides from FIRST.</p>
+                    <a href="https://www.firstlegoleague.org/" class="btn">Visit Website</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h4>LEGO Education Support</h4>
+                    <p>Resources for SPIKE Prime, EV3, and other LEGO robotics platforms.</p>
+                    <a href="https://education.lego.com/" class="btn">Visit Website</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h4>EV3 Lessons</h4>
+                    <p>Comprehensive tutorials for LEGO MINDSTORMS EV3 programming.</p>
+                    <a href="http://ev3lessons.com/" class="btn">Visit Website</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h4>SPIKE Prime Lessons</h4>
+                    <p>Programming tutorials for the LEGO Education SPIKE Prime system.</p>
+                    <a href="https://primelessons.org/" class="btn">Visit Website</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h4>FLLcasts</h4>
+                    <p>Video tutorials and strategies for robot design and programming.</p>
+                    <a href="https://www.fllcasts.com/" class="btn">Visit Website</a>
+                </div>
+                
+                <div class="resource-card">
+                    <h4>Techbrick</h4>
+                    <p>Resources for FLL teams including robot design, programming, and project guidance.</p>
+                    <a href="https://techbrick.com/" class="btn">Visit Website</a>
+                </div>
+            </div>
+            
+            <h3>Books and Publications</h3>
+            <div class="card">
+                <ul>
+                    <li><strong>FIRST LEGO League: The Unofficial Guide</strong> by James Floyd Kelly and Jonathan Daudelin</li>
+                    <li><strong>The Art of LEGO MINDSTORMS EV3 Programming</strong> by Terry Griffin</li>
+                    <li><strong>LEGO MINDSTORMS Robot Inventor Activity Book</strong> by Daniele Benedettelli</li>
+                    <li><strong>Engineering with LEGO Bricks and ROBOLAB</strong> by Eric Wang</li>
+                </ul>
+            </div>
+            
+            <h3>Community Forums</h3>
+            <div class="card">
+                <ul>
+                    <li><strong>FIRST Forums:</strong> Official discussion boards for FLL questions.</li>
+                    <li><strong>Reddit r/FLL:</strong> Community discussions and advice sharing.</li>
+                    <li><strong>Facebook Groups:</strong> Many regional FLL groups share resources and tips.</li>
+                    <li><strong>Discord Servers:</strong> Real-time chat with other FLL teams and mentors.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>First Lego League Guide | Created to help teams succeed in their FIRST LEGO League journey</p>
+        <p>FLL® and FIRST® LEGO® League are registered trademarks of FIRST and the LEGO Group, who do not sponsor, authorize, or endorse this site.</p>
+    </footer>
+
+    <script>
+        function openTab(tabName) {
+            // Hide all tab content
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+            
+            // Remove active class from all tab buttons
+            var tabButtons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+            
+            // Show the selected tab content and mark its button as active
+            document.getElementById(tabName).classList.add("active");
+            
+            // Find and activate the corresponding button
+            var buttons = document.getElementsByClassName("tab-button");
+            for (var i = 0; i < buttons.length; i++) {
+                if (buttons[i].getAttribute("onclick").includes(tabName)) {
+                    buttons[i].classList.add("active");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
